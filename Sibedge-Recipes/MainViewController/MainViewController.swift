@@ -35,12 +35,9 @@ class MainViewController: UIViewController {
             NSAttributedStringKey.foregroundColor: UIColor.blue,
             NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .title1)
         ]
-        
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        
         navigationItem.searchController = seachController
         navigationItem.hidesSearchBarWhenScrolling = true
-        
         seachController.searchResultsUpdater = self
         seachController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
@@ -94,6 +91,9 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        let detailVC = DetailsViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
@@ -101,6 +101,8 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
+        
+        tableView.reloadData()
     }
     
     

@@ -21,7 +21,7 @@ class RecipeCell: UITableViewCell {
     }
     
     public func configure() {
-        printMine("Configure Cell")
+        
     }
     
     
