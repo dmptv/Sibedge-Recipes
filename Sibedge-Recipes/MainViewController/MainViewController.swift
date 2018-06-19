@@ -17,14 +17,22 @@ internal struct MainCellIdentifies {
 class MainViewController: UIViewController {
     
     var tableView: UITableView!
-    var tableviewDatasourse = TableviewDataSourse()
     let seachController = UISearchController(searchResultsController: nil)
+    var tableviewDatasourse = TableviewDataSourse()
+    
+    let segmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Name", "Description", "Instruction"])
+        sc.tintColor = .darkGray
+        sc.selectedSegmentIndex = 0
+        return sc
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViewLoadings()
         setupTableView()
+        setupSegmentedControl()
     }
     
     private func setupViewLoadings() {
@@ -63,10 +71,16 @@ class MainViewController: UIViewController {
         tableView.separatorColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         setupTableVIewCells()
         
         tableView.reloadData()
+    }
+    
+    private func setupSegmentedControl() {
+//        view.addSubview(segmentedControl)
+        navigationItem.titleView = segmentedControl
     }
   
     fileprivate func setupTableVIewCells() {
