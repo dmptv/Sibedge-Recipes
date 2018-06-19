@@ -82,6 +82,7 @@ extension DetailsViewController {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DetailsCellIdentifies.headerCell, for: indexPath) as! Header
      
+        header.recipe = recipe
         return header
     }
 }

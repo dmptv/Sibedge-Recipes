@@ -10,6 +10,16 @@ import UIKit
 
 class PhotoCell: UICollectionViewCell {
     
+    var urlStr: (String, Int)? {
+        didSet {
+            guard let urlStr = urlStr else {
+                return
+            }
+            imageView.loadImage(urlString: urlStr.0)
+            pageCountLbl.text = "\(urlStr.1 + 1) image"
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -20,8 +30,8 @@ class PhotoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let imageView: UIImageView = {
-        let iv = UIImageView()
+    let imageView: CustomImageView = {
+        let iv = CustomImageView()
         iv.image = UIImage(named: "img")
         iv.contentMode = .scaleAspectFill
         iv.layer.masksToBounds = true
@@ -30,7 +40,6 @@ class PhotoCell: UICollectionViewCell {
     
     let pageCountLbl: UILabel = {
         let label = UILabel()
-        label.text = "99"
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 1
         label.textAlignment = .right
@@ -45,7 +54,7 @@ class PhotoCell: UICollectionViewCell {
         imageView.frame = CGRect(x: 0, y: 0,
                                  width: frame.width, height: frame.width - 72)
         pageCountLbl.frame = CGRect(x: 0, y: frame.width - 72,
-                                    width: frame.width, height: 20)
+                                    width: frame.width - 8, height: 20)
     }
 }
 

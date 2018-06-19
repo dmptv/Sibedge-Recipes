@@ -36,6 +36,12 @@ class Header: UICollectionViewCell, UICollectionViewDataSource, UICollectionView
         setupViews()
     }
     
+    var recipe: Recipe? {
+        didSet {
+            photosCollectionView.reloadData()
+        }
+    }
+    
     private func setupViews() {
         backgroundColor = .clear
         
@@ -63,6 +69,7 @@ class Header: UICollectionViewCell, UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoCell
+        cell.urlStr = (recipe?.images[indexPath.item] ?? "", indexPath.item)
         return cell
     }
 
