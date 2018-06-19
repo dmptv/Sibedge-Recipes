@@ -15,6 +15,11 @@ internal struct MainCellIdentifies {
 }
 
 class MainViewController: UIViewController {
+    enum SearchState {
+        case name
+        case description
+        case instruction
+    }
     
      var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -31,11 +36,30 @@ class MainViewController: UIViewController {
         let sc = UISegmentedControl(items: ["Name", "Description", "Instruction"])
         sc.tintColor = .darkGray
         sc.selectedSegmentIndex = 0
+        sc.addTarget(self, action: #selector(segmentChanged(_ :)), for: .valueChanged)
         return sc
     }()
     
+    @objc private func segmentChanged(_ control: UISegmentedControl) {
+        
+        switch control.selectedSegmentIndex {
+        case 1:
+           searchState = .name
+        case 2:
+            searchState = .description
+        case 3:
+            searchState = .instruction
+        default:
+            searchState = .name
+        }
+    }
+    
     let seachController = UISearchController(searchResultsController: nil)
     var tableviewDatasourse = TableviewDataSourse()
+    var searchState = SearchState.name
+
+    private var recipes = [Recipe]()
+    private var filteredRecipes = [Recipe]()
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,41 +138,22 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
+        filteredRecipes = recipes.filter({ [weak self] (recipe) -> Bool in
+            guard let strongSelf = self else {return false}
+            switch strongSelf.searchState {
+            case .name:
+                 return recipe.name.contains(searchController.searchBar.text!)
+            case .description:
+                 return recipe.description.contains(searchController.searchBar.text!)
+            case .instruction:
+                 return recipe.instructions.contains(searchController.searchBar.text!)
+            }
+        })
         
         tableView.reloadData()
     }
     
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
