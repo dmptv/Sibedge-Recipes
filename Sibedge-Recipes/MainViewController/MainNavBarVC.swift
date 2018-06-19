@@ -10,6 +10,17 @@ import UIKit
 
 class MainNavigationController: UINavigationController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationBar.prefersLargeTitles = true
+        let attributes = [
+            NSAttributedStringKey.foregroundColor: UIColor.blue,
+            NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .title1)
+        ]
+        navigationBar.largeTitleTextAttributes = attributes
+    }
+
     
 }
 

@@ -16,9 +16,16 @@ internal struct MainCellIdentifies {
 
 class MainViewController: UIViewController {
     
-    var tableView: UITableView!
-    let seachController = UISearchController(searchResultsController: nil)
-    var tableviewDatasourse = TableviewDataSourse()
+     var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        tableView.estimatedRowHeight = 110
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return tableView
+    }()
     
     let segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Name", "Description", "Instruction"])
@@ -26,7 +33,10 @@ class MainViewController: UIViewController {
         sc.selectedSegmentIndex = 0
         return sc
     }()
-
+    
+    let seachController = UISearchController(searchResultsController: nil)
+    var tableviewDatasourse = TableviewDataSourse()
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,13 +47,7 @@ class MainViewController: UIViewController {
     
     private func setupViewLoadings() {
         view.backgroundColor = .white
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let attributes = [
-            NSAttributedStringKey.foregroundColor: UIColor.blue,
-            NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .title1)
-        ]
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+
         navigationItem.searchController = seachController
         navigationItem.hidesSearchBarWhenScrolling = true
         seachController.searchResultsUpdater = self
@@ -52,7 +56,6 @@ class MainViewController: UIViewController {
         
         navigationItem.title = "List"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(handleSort))
-        
     }
     
     @objc fileprivate func handleSort() {
@@ -60,21 +63,13 @@ class MainViewController: UIViewController {
     }
 
     private func setupTableView() {
-        tableView = UITableView(frame: view.bounds, style: .plain)
+        view.addSubview(tableView)
+        tableView.frame = view.bounds
         tableView.delegate = self
         tableView.dataSource = tableviewDatasourse
-        view.addSubview(tableView)
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.pinEdgesToSafeArea(of: view)
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-        tableView.estimatedRowHeight = 110
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         setupTableVIewCells()
-        
         tableView.reloadData()
     }
     
