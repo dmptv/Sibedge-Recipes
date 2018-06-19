@@ -17,7 +17,7 @@ class DescriptionCell: UICollectionViewCell {
         didSet {
             guard let recipeText = recipeText else { return }
 
-            let str = recipeText.replacingOccurrences(of: "<br>", with: "", options: .regularExpression, range: nil)
+            let str = recipeText.replacingOccurrences(of: "<br>", with: "\n", options: .regularExpression, range: nil)
             
             let attributesText = NSMutableAttributedString(string: str, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)])
             

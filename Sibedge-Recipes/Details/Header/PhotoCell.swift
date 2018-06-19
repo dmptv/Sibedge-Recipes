@@ -16,7 +16,7 @@ class PhotoCell: UICollectionViewCell {
                 return
             }
             imageView.loadImage(urlString: urlStr.0)
-            pageCountLbl.text = "\(urlStr.1 + 1) image"
+            pageCountLbl.text = "✦\(urlStr.1 + 1)✦"
         }
     }
     
@@ -42,7 +42,7 @@ class PhotoCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 1
-        label.textAlignment = .right
+        label.textAlignment = .center
         return label
     }()
 
@@ -53,8 +53,9 @@ class PhotoCell: UICollectionViewCell {
         
         imageView.frame = CGRect(x: 0, y: 0,
                                  width: frame.width, height: frame.width - 72)
+        
         pageCountLbl.frame = CGRect(x: 0, y: frame.width - 72,
-                                    width: frame.width - 8, height: 20)
+                                    width: frame.width, height: 20)
     }
 }
 

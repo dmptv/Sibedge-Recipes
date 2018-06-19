@@ -92,13 +92,12 @@ extension DetailsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if indexPath.item == 1 {
-            let rect = descriptionAttributedText(recipe.description).boundingRect(with: CGSize(width: view.frame.width - 32, height: 1000), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
-            return CGSize(width: view.frame.width, height: rect.height + 40)
+            return calculateSize(recipe.description)
         }
         
         if indexPath.item == 2 {
-            let rect = descriptionAttributedText(recipe.instructions).boundingRect(with: CGSize(width: view.frame.width - 32, height: 1000), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
-            return CGSize(width: view.frame.width, height: rect.height + 40)
+            let str = recipe.instructions.replacingOccurrences(of: "<br>", with: "\n", options: .regularExpression, range: nil)
+            return calculateSize(str)
         }
         
         return CGSize(width: view.frame.width, height: 60)
@@ -110,7 +109,11 @@ extension DetailsViewController: UICollectionViewDelegateFlowLayout {
         
         return attributedText
     }
-
+    
+    fileprivate func calculateSize(_ text: String) -> CGSize {
+        let rect = descriptionAttributedText(text).boundingRect(with: CGSize(width: view.frame.width - 32, height: 1000), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+        return CGSize(width: view.frame.width, height: rect.height + 40)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
