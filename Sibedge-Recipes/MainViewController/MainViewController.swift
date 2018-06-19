@@ -55,7 +55,7 @@ class MainViewController: UIViewController {
     }
     
     let seachController = UISearchController(searchResultsController: nil)
-    var tableviewDatasourse = TableviewDataSourse()
+    var mainTableviewDatasourse = MainTableviewDataSourse()
     var searchState = SearchState.name
 
     private var recipes = [Recipe]()
@@ -67,6 +67,38 @@ class MainViewController: UIViewController {
         setupViewLoadings()
         setupTableView()
         setupSegmentedControl()
+        
+        getData()
+    }
+    
+    private func getData() {
+        ApiClient.shared.loadData { [weak self]  result in
+            
+             guard let strongSelf = self else { return }
+            
+            switch result {
+            case .sucsess(let value as AnyObject):
+                
+                if let data = value["recipes"] as? [Json] {
+                    
+                    data.forEach { json in
+                        let recipe = Recipe.createRecipe(json: json)
+                        strongSelf.recipes.append(recipe)
+                    }
+
+                    DispatchQueue.main.async {
+                        strongSelf.mainTableviewDatasourse.recipes = strongSelf.recipes
+                        strongSelf.tableView.reloadData()
+                    }
+
+                }
+           
+                break
+            case .failure:
+                printMine("failure")
+                break
+            }
+        }
     }
     
     private func setupViewLoadings() {
@@ -83,14 +115,14 @@ class MainViewController: UIViewController {
     }
     
     @objc fileprivate func handleSort() {
-        printMine("Sort Handle")
+        // FIXME: - implement sorting
     }
 
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
         tableView.delegate = self
-        tableView.dataSource = tableviewDatasourse
+        tableView.dataSource = mainTableviewDatasourse
         tableView.pinEdgesToSafeArea(of: view)
         
         setupTableVIewCells()
@@ -98,17 +130,12 @@ class MainViewController: UIViewController {
     }
     
     private func setupSegmentedControl() {
-//        view.addSubview(segmentedControl)
         navigationItem.titleView = segmentedControl
     }
   
     fileprivate func setupTableVIewCells() {
-//        var cellNib = UINib(nibName: MainCellIdentifies.loadingCell, bundle: nil)
-//        tableView.register(cellNib, forCellReuseIdentifier: MainCellIdentifies.loadingCell)
         let cellNib = UINib(nibName: MainCellIdentifies.recipeCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: MainCellIdentifies.recipeCell)
-//        cellNib = UINib(nibName: MainCellIdentifies.nothingFoundCell, bundle: nil)
-//        tableView.register(cellNib, forCellReuseIdentifier: MainCellIdentifies.nothingFoundCell)
     }
 
     deinit {
@@ -127,7 +154,7 @@ extension MainViewController: UITableViewDelegate {
         
         let detailVC = DetailsViewController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        // fix
+        //FIXME: -  pass real data
         detailVC.recipe = Recipe.mockRecipe
         
         navigationController?.pushViewController(detailVC, animated: true)
@@ -137,6 +164,8 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        
+        //FIXME: - implement search result
         
         filteredRecipes = recipes.filter({ [weak self] (recipe) -> Bool in
             guard let strongSelf = self else {return false}

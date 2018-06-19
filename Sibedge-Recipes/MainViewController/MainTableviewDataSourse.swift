@@ -8,17 +8,24 @@
 
 import UIKit
 
-class TableviewDataSourse: NSObject, UITableViewDataSource {
+class MainTableviewDataSourse: NSObject, UITableViewDataSource {
+    
+    var recipes: [Recipe]!
+    var filteredRecipes: [Recipe]!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if recipes == nil {
+            return 0
+        }
         
-        return 5
+        return recipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: MainCellIdentifies.recipeCell, for: indexPath) as! RecipeCell
         
-        cell.configure()
+        let recipe = recipes[indexPath.row]
+        cell.configure(recipe: recipe)
         
         return cell
     }
@@ -26,3 +33,12 @@ class TableviewDataSourse: NSObject, UITableViewDataSource {
     
     
 }
+
+
+
+
+
+
+
+
+

@@ -10,18 +10,19 @@ import UIKit
 
 class RecipeCell: UITableViewCell {
     
-    @IBOutlet weak var imgVIew: UIImageView!
+    @IBOutlet weak var imgVIew: CustomImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var descriptionLbl: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        configure()
     }
     
-    public func configure() {
-        
+    public func configure(recipe: Recipe) {
+        imgVIew.loadImage(urlString: recipe.images[0])
+        nameLbl.text = recipe.name
+        descriptionLbl.text = recipe.description
     }
     
     

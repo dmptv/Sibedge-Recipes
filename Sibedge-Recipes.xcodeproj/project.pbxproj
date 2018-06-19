@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D74D7F920D94237009A7D98 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D74D7F820D94237009A7D98 /* NetworkError.swift */; };
 		9D9EB78F20D77AAE00319D45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB78E20D77AAE00319D45 /* AppDelegate.swift */; };
 		9D9EB79120D77AAE00319D45 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB79020D77AAE00319D45 /* MainViewController.swift */; };
 		9D9EB79620D77AB100319D45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D9EB79520D77AB100319D45 /* Assets.xcassets */; };
@@ -14,13 +15,13 @@
 		9D9EB7A320D77B5000319D45 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7A220D77B5000319D45 /* Extensions.swift */; };
 		9D9EB7A520D77B7200319D45 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7A420D77B7200319D45 /* CustomImageView.swift */; };
 		9D9EB7A820D77C0100319D45 /* MainNavBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7A720D77C0100319D45 /* MainNavBarVC.swift */; };
-		9D9EB7AA20D77F4100319D45 /* TableviewDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7A920D77F4100319D45 /* TableviewDataSourse.swift */; };
+		9D9EB7AA20D77F4100319D45 /* MainTableviewDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7A920D77F4100319D45 /* MainTableviewDataSourse.swift */; };
 		9D9EB7AC20D7800200319D45 /* UIStackView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7AB20D7800200319D45 /* UIStackView+Helpers.swift */; };
 		9D9EB7AE20D7811F00319D45 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9EB7AD20D7811F00319D45 /* Globals.swift */; };
 		9DD6D72E20D787F20077AFFE /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D72D20D787F20077AFFE /* RecipeCell.swift */; };
 		9DD6D73020D788290077AFFE /* RecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DD6D72F20D788290077AFFE /* RecipeCell.xib */; };
 		9DD6D73420D790F90077AFFE /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D73320D790F90077AFFE /* Recipe.swift */; };
-		9DD6D73720D799270077AFFE /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D73620D799270077AFFE /* NetworkLayer.swift */; };
+		9DD6D73720D799270077AFFE /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D73620D799270077AFFE /* ApiClient.swift */; };
 		9DD6D73A20D7C6420077AFFE /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D73920D7C6420077AFFE /* DetailsViewController.swift */; };
 		9DD6D73D20D7D06D0077AFFE /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D73C20D7D06D0077AFFE /* Header.swift */; };
 		9DD6D74120D7DA910077AFFE /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6D74020D7DA910077AFFE /* PhotoCell.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D74D7F820D94237009A7D98 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		9D9EB78B20D77AAE00319D45 /* Sibedge-Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sibedge-Recipes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D9EB78E20D77AAE00319D45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D9EB79020D77AAE00319D45 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -38,13 +40,13 @@
 		9D9EB7A220D77B5000319D45 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9D9EB7A420D77B7200319D45 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		9D9EB7A720D77C0100319D45 /* MainNavBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavBarVC.swift; sourceTree = "<group>"; };
-		9D9EB7A920D77F4100319D45 /* TableviewDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableviewDataSourse.swift; sourceTree = "<group>"; };
+		9D9EB7A920D77F4100319D45 /* MainTableviewDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableviewDataSourse.swift; sourceTree = "<group>"; };
 		9D9EB7AB20D7800200319D45 /* UIStackView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Helpers.swift"; sourceTree = "<group>"; };
 		9D9EB7AD20D7811F00319D45 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		9DD6D72D20D787F20077AFFE /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		9DD6D72F20D788290077AFFE /* RecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeCell.xib; sourceTree = "<group>"; };
 		9DD6D73320D790F90077AFFE /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
-		9DD6D73620D799270077AFFE /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		9DD6D73620D799270077AFFE /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		9DD6D73920D7C6420077AFFE /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		9DD6D73C20D7D06D0077AFFE /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		9DD6D74020D7DA910077AFFE /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -119,7 +121,7 @@
 			children = (
 				9D9EB7A720D77C0100319D45 /* MainNavBarVC.swift */,
 				9D9EB79020D77AAE00319D45 /* MainViewController.swift */,
-				9D9EB7A920D77F4100319D45 /* TableviewDataSourse.swift */,
+				9D9EB7A920D77F4100319D45 /* MainTableviewDataSourse.swift */,
 				9DD6D72D20D787F20077AFFE /* RecipeCell.swift */,
 				9DD6D72F20D788290077AFFE /* RecipeCell.xib */,
 			);
@@ -137,7 +139,8 @@
 		9DD6D73820D7992C0077AFFE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				9DD6D73620D799270077AFFE /* NetworkLayer.swift */,
+				9DD6D73620D799270077AFFE /* ApiClient.swift */,
+				9D74D7F820D94237009A7D98 /* NetworkError.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -235,16 +238,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DD6D74120D7DA910077AFFE /* PhotoCell.swift in Sources */,
+				9D74D7F920D94237009A7D98 /* NetworkError.swift in Sources */,
 				9D9EB7AC20D7800200319D45 /* UIStackView+Helpers.swift in Sources */,
 				9DD6D73D20D7D06D0077AFFE /* Header.swift in Sources */,
 				9D9EB79120D77AAE00319D45 /* MainViewController.swift in Sources */,
 				9D9EB7A520D77B7200319D45 /* CustomImageView.swift in Sources */,
 				9DD6D72E20D787F20077AFFE /* RecipeCell.swift in Sources */,
 				9D9EB7A320D77B5000319D45 /* Extensions.swift in Sources */,
-				9DD6D73720D799270077AFFE /* NetworkLayer.swift in Sources */,
+				9DD6D73720D799270077AFFE /* ApiClient.swift in Sources */,
 				9D9EB7AE20D7811F00319D45 /* Globals.swift in Sources */,
 				9D9EB7A820D77C0100319D45 /* MainNavBarVC.swift in Sources */,
-				9D9EB7AA20D77F4100319D45 /* TableviewDataSourse.swift in Sources */,
+				9D9EB7AA20D77F4100319D45 /* MainTableviewDataSourse.swift in Sources */,
 				9D9EB78F20D77AAE00319D45 /* AppDelegate.swift in Sources */,
 				9DD6D73420D790F90077AFFE /* Recipe.swift in Sources */,
 				9DD6D73A20D7C6420077AFFE /* DetailsViewController.swift in Sources */,

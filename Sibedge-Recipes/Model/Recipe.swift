@@ -14,6 +14,22 @@ struct Recipe {
     var instructions: String
     var difficulty: Int
     var images: [String]
+  
+//    init(json: Json) {
+//        self.name = json["name"] as? String ?? ""
+//        self.description = json["description"] as? String ?? ""
+//        self.instructions = json["instructions"] as? String ?? ""
+//        self.difficulty = json["difficulty"] as? Int ?? 0
+//        self.images = json["images"] as? [String] ?? [""]
+//    }
+    
+    static func createRecipe(json: Json) -> Recipe {
+        return Recipe(name:  json["name"] as? String ?? "",
+               description: json["description"] as? String ?? "",
+               instructions: json["instructions"] as? String ?? "",
+               difficulty: json["difficulty"] as? Int ?? 0,
+               images: json["images"] as? [String] ?? [""])
+    }
 
     static var mockRecipe: Recipe {
         return Recipe(name: "Chicken ",
