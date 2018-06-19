@@ -13,11 +13,13 @@ class DescriptionCell: UICollectionViewCell {
     @IBOutlet weak var textlbl: UILabel!
     @IBOutlet weak var descriptionLbl: UILabel!
     
-    var recipe: Recipe? {
+    var recipeText: String? {
         didSet {
-            guard let recipe = recipe else { return }
-            let attributesText = NSMutableAttributedString(string: recipe.instructions, attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14)])
+            guard let recipeText = recipeText else { return }
 
+            let str = recipeText.replacingOccurrences(of: "<br>", with: "", options: .regularExpression, range: nil)
+            
+            let attributesText = NSMutableAttributedString(string: str, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)])
             
             descriptionLbl.attributedText = attributesText
         }
@@ -27,12 +29,26 @@ class DescriptionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        configure()
     }
     
-    public func configure() {
+    public func configure(_ recipe: Recipe) {
         textlbl.text = "Description"
     }
     
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
