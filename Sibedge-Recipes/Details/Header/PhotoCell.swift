@@ -30,9 +30,9 @@ class PhotoCell: UICollectionViewCell {
     
     let pageCountLbl: UILabel = {
         let label = UILabel()
-        label.text = "99 image" + " "
+        label.text = "99"
         label.font = .systemFont(ofSize: 14)
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.textAlignment = .right
         return label
     }()

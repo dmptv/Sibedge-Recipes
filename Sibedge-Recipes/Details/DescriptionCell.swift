@@ -11,6 +11,17 @@ import UIKit
 class DescriptionCell: UICollectionViewCell {
     
     @IBOutlet weak var textlbl: UILabel!
+    @IBOutlet weak var descriptionLbl: UILabel!
+    
+    var recipe: Recipe? {
+        didSet {
+            guard let recipe = recipe else { return }
+            let attributesText = NSMutableAttributedString(string: recipe.instructions, attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14)])
+
+            
+            descriptionLbl.attributedText = attributesText
+        }
+    }
     
     
     override func awakeFromNib() {

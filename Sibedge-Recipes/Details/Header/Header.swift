@@ -16,7 +16,7 @@ class Header: UICollectionViewCell, UICollectionViewDataSource, UICollectionView
     let photosCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 4
+        layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear

@@ -93,6 +93,10 @@ extension MainViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         
         let detailVC = DetailsViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        // fix
+        detailVC.recipe = Recipe.mockRecipe
+        
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
