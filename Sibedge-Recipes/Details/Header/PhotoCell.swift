@@ -54,10 +54,10 @@ class PhotoCell: UICollectionViewCell {
         addSubview(pageCountLbl)
         
         imageView.frame = CGRect(x: 0, y: 0,
-                                 width: frame.width, height: frame.width - 72)
+                                 width: frame.width, height: frame.width - 60)
         
-        pageCountLbl.frame = CGRect(x: 0, y: frame.width - 72,
-                                    width: frame.width, height: 20)
+        pageCountLbl.frame = CGRect(x: 0, y: frame.width - 56,
+                                    width: frame.width, height: 16)
     }
 }
 

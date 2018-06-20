@@ -121,7 +121,7 @@ extension DetailsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        return CGSize(width: view.frame.width, height: view.frame.width - 52)
+        return CGSize(width: view.frame.width, height: view.frame.width - 32)
     }
 }
 
