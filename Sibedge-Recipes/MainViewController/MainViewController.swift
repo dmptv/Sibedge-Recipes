@@ -26,13 +26,11 @@ class MainViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-//        tableView.estimatedRowHeight = 110
-//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
     
-    let segmentedControl: UISegmentedControl = {
+     var segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Name", "Description", "Instruction"])
         sc.tintColor = .darkGray
         sc.selectedSegmentIndex = 0
@@ -40,18 +38,20 @@ class MainViewController: UIViewController {
         return sc
     }()
     
-    @objc private func segmentChanged(_ control: UISegmentedControl) {
+    @objc func segmentChanged(_ control: UISegmentedControl) {
         
         switch control.selectedSegmentIndex {
+        case 0:
+            searchState = .name
         case 1:
-           searchState = .name
-        case 2:
             searchState = .description
-        case 3:
+        case 2:
             searchState = .instruction
         default:
             searchState = .name
         }
+        
+        printMine(searchState)
     }
     
     let seachController = UISearchController(searchResultsController: nil)
@@ -80,7 +80,6 @@ class MainViewController: UIViewController {
             case .sucsess(let value as AnyObject):
                 
                 if let data = value["recipes"] as? [Json] {
-                    
                     data.forEach { json in
                         let recipe = Recipe.createRecipe(json: json)
                         strongSelf.recipes.append(recipe)
@@ -90,7 +89,6 @@ class MainViewController: UIViewController {
                         strongSelf.mainTableviewDatasourse.recipes = strongSelf.recipes
                         strongSelf.tableView.reloadData()
                     }
-
                 }
            
                 break
@@ -167,18 +165,22 @@ extension MainViewController: UISearchResultsUpdating {
         
         //FIXME: - implement search result
         
-        filteredRecipes = recipes.filter({ [weak self] (recipe) -> Bool in
+        filteredRecipes = recipes.filter({ [weak self] recipe -> Bool in
+            
             guard let strongSelf = self else {return false}
+            
             switch strongSelf.searchState {
             case .name:
-                 return recipe.name.contains(searchController.searchBar.text!)
+                return recipe.name.contains(searchController.searchBar.text!)
             case .description:
-                 return recipe.description.contains(searchController.searchBar.text!)
+                return recipe.description.contains(searchController.searchBar.text!)
             case .instruction:
-                 return recipe.instructions.contains(searchController.searchBar.text!)
+                return recipe.instructions.contains(searchController.searchBar.text!)
             }
         })
-        
+    
+        mainTableviewDatasourse.filteredRecipes = filteredRecipes
+        mainTableviewDatasourse.isSeachActive = searchController.isActive
         tableView.reloadData()
     }
     

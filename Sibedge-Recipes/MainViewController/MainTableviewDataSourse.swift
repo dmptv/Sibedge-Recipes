@@ -12,10 +12,15 @@ class MainTableviewDataSourse: NSObject, UITableViewDataSource {
     
     var recipes: [Recipe]!
     var filteredRecipes: [Recipe]!
+    var isSeachActive = false
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if recipes == nil {
             return 0
+        }
+        
+        if isSeachActive {
+            return filteredRecipes.count
         }
         
         return recipes.count
@@ -24,7 +29,8 @@ class MainTableviewDataSourse: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: MainCellIdentifies.recipeCell, for: indexPath) as! RecipeCell
         
-        let recipe = recipes[indexPath.row]
+        let recipe: Recipe
+        recipe = isSeachActive ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
         cell.configure(recipe: recipe)
         
         return cell
@@ -33,6 +39,17 @@ class MainTableviewDataSourse: NSObject, UITableViewDataSource {
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
