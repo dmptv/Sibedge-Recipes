@@ -15,11 +15,13 @@ internal struct MainCellIdentifies {
 }
 
 class MainViewController: UIViewController {
-    enum SearchState {
-        case name
-        case description
-        case instruction
+    enum State {
+        case notSearchedYet
+        case loading
+        case noResults
+        case results([Recipe])
     }
+    private var state: State = .notSearchedYet
     
      var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -29,35 +31,10 @@ class MainViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
-    
-     var segmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["Name", "Description", "Instruction"])
-        sc.tintColor = .darkGray
-        sc.selectedSegmentIndex = 0
-        sc.addTarget(self, action: #selector(segmentChanged(_ :)), for: .valueChanged)
-        return sc
-    }()
-    
-    @objc func segmentChanged(_ control: UISegmentedControl) {
-        
-        switch control.selectedSegmentIndex {
-        case 0:
-            searchState = .name
-        case 1:
-            searchState = .description
-        case 2:
-            searchState = .instruction
-        default:
-            searchState = .name
-        }
-        
-        printMine(searchState)
-    }
-    
+
     let seachController = UISearchController(searchResultsController: nil)
     var mainTableviewDatasourse = MainTableviewDataSourse()
-    var searchState = SearchState.name
-
+    
     private var recipes = [Recipe]()
     private var filteredRecipes = [Recipe]()
  
@@ -66,8 +43,6 @@ class MainViewController: UIViewController {
         
         setupViewLoadings()
         setupTableView()
-        setupSegmentedControl()
-        
         getData()
     }
     
@@ -108,7 +83,10 @@ class MainViewController: UIViewController {
         seachController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         
-        navigationItem.title = "List"
+        seachController.searchBar.scopeButtonTitles = ["Name", "Description", "Instruction"]
+        seachController.searchBar.placeholder = "Search"
+        
+        navigationItem.title = "Recipes"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(handleSort))
     }
     
@@ -126,19 +104,12 @@ class MainViewController: UIViewController {
         setupTableVIewCells()
         tableView.reloadData()
     }
-    
-    private func setupSegmentedControl() {
-        navigationItem.titleView = segmentedControl
-    }
-  
+
     fileprivate func setupTableVIewCells() {
         let cellNib = UINib(nibName: MainCellIdentifies.recipeCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: MainCellIdentifies.recipeCell)
     }
 
-    deinit {
-        printMine("deinit: \(self)")
-    }
 }
 
 extension MainViewController: UITableViewDelegate {
@@ -163,21 +134,19 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
-        //FIXME: - implement search result
-        
-        filteredRecipes = recipes.filter({ [weak self] recipe -> Bool in
+        filteredRecipes = recipes.filter { recipe -> Bool in
             
-            guard let strongSelf = self else {return false}
-            
-            switch strongSelf.searchState {
-            case .name:
+            switch searchController.searchBar.selectedScopeButtonIndex {
+            case 0:
                 return recipe.name.contains(searchController.searchBar.text!)
-            case .description:
+            case 1:
                 return recipe.description.contains(searchController.searchBar.text!)
-            case .instruction:
+            case 2:
                 return recipe.instructions.contains(searchController.searchBar.text!)
+            default:
+                return recipe.name.contains(searchController.searchBar.text!)
             }
-        })
+        }
     
         mainTableviewDatasourse.filteredRecipes = filteredRecipes
         mainTableviewDatasourse.isSeachActive = searchController.isActive

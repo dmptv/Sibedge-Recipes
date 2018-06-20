@@ -45,6 +45,10 @@ class DetailsViewController: UICollectionViewController {
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 50, 0)
     }
     
+    deinit {
+        printMine("deinit: \(self)")
+    }
+    
 }
 
 extension DetailsViewController {
