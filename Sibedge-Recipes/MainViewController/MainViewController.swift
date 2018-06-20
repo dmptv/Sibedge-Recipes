@@ -100,7 +100,7 @@ class MainViewController: UIViewController {
     @objc fileprivate func handleSort() {
         sortCase = !sortCase
         recipes.sort(by: { (r1, r2) -> Bool in
-            return sortCase ? r1.lastUpdated < r2.lastUpdated : r1.lastUpdated > r2.lastUpdated
+            return sortCase ? r1.lastUpdated > r2.lastUpdated : r1.lastUpdated < r2.lastUpdated
         })
         DispatchQueue.main.async {
             self.mainTableviewDatasourse.recipes = self.recipes
@@ -143,7 +143,6 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-//FIXME: - separate seach to another class
 extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
