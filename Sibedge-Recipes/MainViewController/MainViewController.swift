@@ -137,8 +137,7 @@ extension MainViewController: UITableViewDelegate {
         
         let detailVC = DetailsViewController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        //FIXME: -  pass real data
-        detailVC.recipe = Recipe.mockRecipe
+        detailVC.recipe = seachController.isActive ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
         
         navigationController?.pushViewController(detailVC, animated: true)
     }

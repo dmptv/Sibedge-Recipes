@@ -64,12 +64,17 @@ class Header: UICollectionViewCell, UICollectionViewDataSource, UICollectionView
     
     //MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        if let images = recipe?.images {
+            return images.count
+        }
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoCell
-        cell.urlStr = (recipe?.images[indexPath.item] ?? "", indexPath.item)
+        cell.urlStr = (recipe?.images[indexPath.item] ?? "noImage",
+                       indexPath.item,
+                       recipe?.images.count) as? (String, indexPath: Int, imageCount: Int)
         return cell
     }
 

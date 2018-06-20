@@ -10,13 +10,15 @@ import UIKit
 
 class PhotoCell: UICollectionViewCell {
     
-    var urlStr: (String, Int)? {
+    var urlStr: (String, indexPath: Int, imageCount: Int)? {
         didSet {
-            guard let urlStr = urlStr else {
-                return
+            guard let urlStr = urlStr else { return }
+            if urlStr.0 == "noImage" {
+                imageView.image = UIImage(named: "img")
+            } else {
+                imageView.loadImage(urlString: urlStr.0)
             }
-            imageView.loadImage(urlString: urlStr.0)
-            pageCountLbl.text = "✦\(urlStr.1 + 1)✦"
+            pageCountLbl.text = urlStr.imageCount == 1 ? "✦" : "✦\(urlStr.1 + 1)✦"
         }
     }
     
