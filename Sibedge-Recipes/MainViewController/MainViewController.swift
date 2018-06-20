@@ -21,7 +21,9 @@ class MainViewController: UIViewController {
         case noResults
         case results([Recipe])
     }
+
     private var state: State = .notSearchedYet
+    private var sortCase = false
     
      var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -59,6 +61,10 @@ class MainViewController: UIViewController {
                         let recipe = Recipe.createRecipe(json: json)
                         strongSelf.recipes.append(recipe)
                     }
+                    
+                    strongSelf.recipes.sort(by: { (r1, r2) -> Bool in
+                        return r1.lastUpdated < r2.lastUpdated
+                    })
 
                     DispatchQueue.main.async {
                         strongSelf.mainTableviewDatasourse.recipes = strongSelf.recipes
@@ -85,13 +91,21 @@ class MainViewController: UIViewController {
         
         seachController.searchBar.scopeButtonTitles = ["Name", "Description", "Instruction"]
         seachController.searchBar.placeholder = "Search"
+        seachController.searchBar.delegate = self
         
         navigationItem.title = "Recipes"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(handleSort))
     }
     
     @objc fileprivate func handleSort() {
-        // FIXME: - implement sorting
+        sortCase = !sortCase
+        recipes.sort(by: { (r1, r2) -> Bool in
+            return sortCase ? r1.lastUpdated < r2.lastUpdated : r1.lastUpdated > r2.lastUpdated
+        })
+        DispatchQueue.main.async {
+            self.mainTableviewDatasourse.recipes = self.recipes
+            self.tableView.reloadData()
+        }
     }
 
     private func setupTableView() {
@@ -130,26 +144,32 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-
-extension MainViewController: UISearchResultsUpdating {
+//FIXME: - separate seach to another class
+extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
     func updateSearchResults(for searchController: UISearchController) {
-        
+        perfomSearch(searchController.searchBar)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        perfomSearch(searchBar)
+    }
+    
+    private func perfomSearch(_ searchBar: UISearchBar) {
         filteredRecipes = recipes.filter { recipe -> Bool in
-            
-            switch searchController.searchBar.selectedScopeButtonIndex {
+            switch searchBar.selectedScopeButtonIndex {
             case 0:
-                return recipe.name.contains(searchController.searchBar.text!)
+                return recipe.name.contains(searchBar.text!)
             case 1:
-                return recipe.description.contains(searchController.searchBar.text!)
+                return recipe.description.contains(searchBar.text!)
             case 2:
-                return recipe.instructions.contains(searchController.searchBar.text!)
+                return recipe.instructions.contains(searchBar.text!)
             default:
-                return recipe.name.contains(searchController.searchBar.text!)
+                return recipe.name.contains(searchBar.text!)
             }
         }
-    
         mainTableviewDatasourse.filteredRecipes = filteredRecipes
-        mainTableviewDatasourse.isSeachActive = searchController.isActive
+        mainTableviewDatasourse.isSeachActive = seachController.isActive
         tableView.reloadData()
     }
     

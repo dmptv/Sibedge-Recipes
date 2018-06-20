@@ -14,21 +14,15 @@ struct Recipe {
     var instructions: String
     var difficulty: Int
     var images: [String]
-  
-//    init(json: Json) {
-//        self.name = json["name"] as? String ?? ""
-//        self.description = json["description"] as? String ?? ""
-//        self.instructions = json["instructions"] as? String ?? ""
-//        self.difficulty = json["difficulty"] as? Int ?? 0
-//        self.images = json["images"] as? [String] ?? [""]
-//    }
+    var lastUpdated: Date
     
     static func createRecipe(json: Json) -> Recipe {
         return Recipe(name:  json["name"] as? String ?? "",
                description: json["description"] as? String ?? "",
                instructions: json["instructions"] as? String ?? "",
                difficulty: json["difficulty"] as? Int ?? 0,
-               images: json["images"] as? [String] ?? [""])
+               images: json["images"] as? [String] ?? [""],
+               lastUpdated: (json["lastUpdated"] as? Double ?? 0).dateFromTimestamp())
     }
 
     static var mockRecipe: Recipe {
@@ -40,12 +34,32 @@ struct Recipe {
                         "https://bigoven-res.cloudinary.com/image/upload/t_recipe-256/roasted-chicken-with-whole-lemon-an.jpg",
                                "https://bigoven-res.cloudinary.com/image/upload/t_recipe-256/roasted-chicken-with-whole-lemon-an-2.jpg",
                                "https://bigoven-res.cloudinary.com/image/upload/t_recipe-256/minted-orzo-with-tomatoes-30dc99.jpg"
-            ])
+            ],
+                      lastUpdated: Date())
     }
 }
 
-
-
+extension Double {
+    func getDateStringFromUTC() -> String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateStyle = .medium
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateFromTimestamp() -> Date {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeZone = TimeZone.current
+        
+        return date
+    }
+    
+}
 
 
 
