@@ -15,7 +15,10 @@ class DescriptionCell: UICollectionViewCell {
     
     var recipeText: String? {
         didSet {
-            guard let recipeText = recipeText else { return }
+            guard let recipeText = recipeText, recipeText != "" else {
+                descriptionLbl.text = ""
+                return
+            }
 
             let str = recipeText.replacingOccurrences(of: "<br>", with: "\n", options: .regularExpression, range: nil)
             

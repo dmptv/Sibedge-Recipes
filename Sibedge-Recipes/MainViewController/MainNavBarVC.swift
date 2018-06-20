@@ -16,12 +16,11 @@ class MainNavigationController: UINavigationController {
         navigationBar.prefersLargeTitles = true
         let attributes = [
             NSAttributedStringKey.foregroundColor: UIColor.blue,
-            NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .title1)
+            NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .title2),
         ]
         navigationBar.largeTitleTextAttributes = attributes
     }
 
-    
 }
 
 /*

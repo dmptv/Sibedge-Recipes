@@ -28,7 +28,6 @@ class DetailsViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Recipe"
         collectionView?.backgroundColor = .white
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.scrollDirection = .vertical
@@ -94,6 +93,10 @@ extension DetailsViewController {
 extension DetailsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if indexPath.item == 1 && recipe.description == "" {
+            return .zero
+        }
         
         if indexPath.item == 1 {
             return calculateSize(recipe.description)

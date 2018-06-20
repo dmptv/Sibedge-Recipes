@@ -137,7 +137,10 @@ extension MainViewController: UITableViewDelegate {
         
         let detailVC = DetailsViewController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        detailVC.recipe = seachController.isActive ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
+        let recipe: Recipe = seachController.isActive ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
+        
+        detailVC.recipe = recipe
+        detailVC.navigationItem.title = recipe.name
         
         navigationController?.pushViewController(detailVC, animated: true)
     }
